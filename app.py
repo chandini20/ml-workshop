@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import joblib
-from sklearn.linear_model import LinearRegression  # Example model
+
 
 st.title("Interactive Model Deployment without PyCaret")
 
