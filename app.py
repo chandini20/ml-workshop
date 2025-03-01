@@ -1,27 +1,27 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import pickle
-from pycaret.classification import load_model, predict_model
-from pycaret.regression import load_model as load_regressor
+import joblib
+from sklearn.linear_model import LinearRegression  # Example model
 
-st.title("Interactive PyCaret Model Deployment ")
-# Upload a PyCaret model file
-uploaded_model = st.file_uploader("Upload your PyCaret model (.pkl)", type=["pkl"])
+st.title("Interactive Model Deployment without PyCaret")
+
+# Upload a model file
+uploaded_model = st.file_uploader("Upload your model (.joblib)", type=["joblib"])
 
 if uploaded_model:
     # Save and load the uploaded model
-    with open("best_regression_model.pkl", "wb") as f:
+    with open("best_model.joblib", "wb") as f:
         f.write(uploaded_model.getbuffer())
 
-    model = load_model("best_regression_model")
+    model = joblib.load("best_model.joblib")
     st.success("Model uploaded and loaded successfully!")
 
     # Dynamically ask for feature inputs
     st.subheader("Enter Feature Values")
 
-    # Extract feature names from the PyCaret model
-    feature_names = list(model.feature_names_in_)  # Get expected features
+    # Example feature names (these should match your model's features)
+    feature_names = ['feature1', 'feature2', 'feature3']
     user_inputs = {}
 
     for feature in feature_names:
@@ -32,6 +32,6 @@ if uploaded_model:
         # Convert input values to correct data types
         input_df = pd.DataFrame([user_inputs])
         
-        # Predict using PyCaret
-        predictions = predict_model(model, data=input_df)
-        st.success(f"Prediction: {predictions['prediction_label'][0]}")
+        # Predict using the model
+        predictions = model.predict(input_df)
+        st.success(f"Prediction: {predictions[0]}")
