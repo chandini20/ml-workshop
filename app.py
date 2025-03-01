@@ -11,10 +11,10 @@ uploaded_model = st.file_uploader("Upload your PyCaret model (.pkl)", type=["pkl
 
 if uploaded_model:
     # Save and load the uploaded model
-    with open("temp_model.pkl", "wb") as f:
+    with open("best_regression_model.pkl", "wb") as f:
         f.write(uploaded_model.getbuffer())
 
-    model = load_model("temp_model")
+    model = load_model("best_regression_model")
     st.success("Model uploaded and loaded successfully!")
 
     # Dynamically ask for feature inputs
