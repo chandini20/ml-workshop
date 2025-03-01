@@ -1,7 +1,0 @@
-pycaret
-streamlit
-pandas
-numpy
-pickle
-pycaret.classification
-pycaret.regression
